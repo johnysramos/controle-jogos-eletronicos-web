@@ -9,7 +9,7 @@ O frontend da aplicação foi desenvolvido com Angular e o backend foi simulado 
 
 ## Protótipo
 
-<!-- Link -->
+https://www.figma.com/file/3Xutb1MP6zT3unpwjbhvPY/Controle-jogos-eletr%C3%B4nicos?type=design&node-id=4688-2&mode=design
 
 ## Checklist
 
