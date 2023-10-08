@@ -1,5 +1,5 @@
 # controle-jogos-eletronicos-web
-Projeto para controle pessoal de jogos eletrônicos desenvolvido na disciplina de Framewrks da Pós em Java da UTFPR
+Projeto para controle pessoal de jogos eletrônicos desenvolvido na disciplina de Framewrks da Pós em Java da UTFPR.
 
 O frontend da aplicação foi desenvolvido com Angular e o backend foi simulado pela implementação de uma API Fake, usando o JSON Server.
 
