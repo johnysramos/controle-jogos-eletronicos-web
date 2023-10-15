@@ -1,1 +1,73 @@
-<p>jogos-eletronicos works!</p>
+<!-- Toolbar grid -->
+<nav style="margin-top: 20px" class="primary-color" *ngIf="ModoTela == 'G'">
+  <div class="nav-wrapper" style="padding-left: 10px">
+    <a>Jogos eletronicos</a>
+  </div>
+</nav>
+
+<!-- Toolbar formulario -->
+<nav style="margin-top: 20px" class="primary-color" *ngIf="ModoTela == 'F'">
+  <div style="padding-right: 10px; text-align: right">
+    <a
+      (click)="onBack()"
+      class="btn-floating btn-large waves-effect waves-light red"
+      ><i class="material-icons">chevron_left</i></a
+    >
+    <a
+      (click)="onSave()"
+      class="btn-floating btn-large waves-effect waves-light red"
+      ><i class="material-icons">save</i></a
+    >
+  </div>
+</nav>
+
+<div style="min-height: 200px; background-color: white; margin-top: 20px">
+  <div style="padding: 20px; text-align: right">
+    <a
+      *ngIf="ModoTela == 'G'"
+      class="waves-effect waves-light btn"
+      (click)="onNovo()"
+      ><i class="material-icons left">add</i>Novo</a
+    >
+  </div>
+
+  <div *ngIf="ModoTela == 'G'">
+    <ul class="collection">
+      <li class="collection-item">Alvin</li>
+      <li class="collection-item">Alvin</li>
+      <li class="collection-item">Alvin</li>
+      <li class="collection-item">Alvin</li>
+    </ul>
+  </div>
+
+  <!-- Formulário -->
+  <div class="row" *ngIf="ModoTela == 'F'">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input
+            id="titulo"
+            name="titulo"
+            type="text"
+            class="validate"
+            [(ngModel)]="RS.titulo"
+          />
+          <label for="titulo">Título</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input
+            id="data_compra"
+            name="data_compra"
+            type="text"
+            class="validate"
+            [(ngModel)]="RS.dataCompra"
+            mask="d0/M0/0000"
+          />
+          <label for="data_compra">Data da compra</label>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
