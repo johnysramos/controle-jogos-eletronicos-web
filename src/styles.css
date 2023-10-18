@@ -9,9 +9,16 @@
     --lightGray: rgb(198, 203, 209);
 }
 
-.detail {
-    min-height: 500px;
-    padding: 15px;
+html, body, app-root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 100% da altura da janela */
+}
+
+router-outlet{
+    flex-grow: 1;
+    padding: 24px;
+    background-color: var(--lightGray);;
 }
 
 .dark-color {

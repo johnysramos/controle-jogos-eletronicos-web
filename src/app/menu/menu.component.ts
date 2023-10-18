@@ -1,10 +1,6 @@
 import * as M from 'materialize-css';
 
-import {
-  Component,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
