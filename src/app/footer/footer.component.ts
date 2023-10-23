@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -7,6 +7,13 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
-  anoAtual = new Date().getFullYear();
+  @Input()
+  anoAtual?: string | number;
 
+  @Output()
+  output = new EventEmitter();
+
+  onClick() {
+    this.output.emit(this.anoAtual);
+  }
 }

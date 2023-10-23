@@ -1,12 +1,9 @@
 <header>
-    <app-menu></app-menu>
+  <app-menu></app-menu>
 </header>
 
-<router-outlet>
-    <div>
-        <!--<app-home></app-home>-->
-        <app-jogos-eletronicos></app-jogos-eletronicos>
-    </div>
-</router-outlet>
+<main>
+  <router-outlet></router-outlet>
+</main>
 
-<app-footer></app-footer>
+<app-footer [anoAtual]="anoAtual" (output)="onClickAno($event)"></app-footer>

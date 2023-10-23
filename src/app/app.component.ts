@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'controle-jogos-eletronicos-web';
+  anoAtual = new Date().getFullYear();
+
+  meuOutput(Event: any) {
+    console.log(Event);
+  }
+
+  onClickAno(Event: any) {
+    console.log(Event);
+  }
 }

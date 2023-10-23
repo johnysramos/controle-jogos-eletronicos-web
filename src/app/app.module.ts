@@ -9,6 +9,7 @@ import { JogosEletronicosComponent } from './jogos-eletronicos/jogos-eletronicos
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { JogoEletronicoDetailComponent } from './jogo-eletronico-detail/jogo-eletronico-detail.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     MenuComponent,
     JogosEletronicosComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    JogoEletronicoDetailComponent
   ],
   imports: [
     BrowserModule,

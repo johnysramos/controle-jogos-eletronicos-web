@@ -1,41 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { JogoEletronico } from '../model/jogo-eletronico';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-jogos-eletronicos',
   templateUrl: './jogos-eletronicos.component.html',
   styleUrls: ['./jogos-eletronicos.component.css'],
 })
-export class JogosEletronicosComponent {
-  Operacao = Operacao.READ;
-  ModoTela = ModoTela.GRID;
+export class JogosEletronicosComponent implements OnInit {
+  jogosEletronicos: JogoEletronico[] = [];
 
-  DataAtual = new Date();
+  constructor(private router: Router) {}
 
-  RS: any = {};
+  ngOnInit(): void {
+    this.jogosEletronicos = JogoEletronico.getJogosEletronicos();
+  }
 
   onNovo() {
-    this.ModoTela = ModoTela.FORMULARIO;
-    this.Operacao = Operacao.CREATE;
+    //this.ModoTela = ModoTela.FORMULARIO;
+    //this.Operacao = Operacao.CREATE;
   }
 
-  onBack() {
-    this.ModoTela = ModoTela.GRID;
-    this.Operacao = Operacao.READ;
+  onClickJogoEletronico(jogoEletronico: JogoEletronico) {
+    this.router.navigate(['/jogos-eletronicos/detalhe', jogoEletronico?.id]);
   }
-
-  onSave() {
-    window.alert(JSON.stringify(this.RS));
-  }
-}
-
-export enum Operacao {
-  CREATE = 'C',
-  READ = 'R',
-  UPDATE = 'U',
-  DELETE = 'D',
-}
-
-export enum ModoTela {
-  GRID = 'G',
-  FORMULARIO = 'F',
 }

@@ -1,0 +1,45 @@
+<!-- Formulário -->
+<button (click)="onClick()">Meu teste</button>
+<div class="row" style="background-color: white">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s6">
+        <input
+          id="titulo"
+          name="titulo"
+          type="text"
+          class="validate"
+          [(ngModel)]="jogoEletronico.titulo"
+        />
+        <label for="titulo">Título</label>
+      </div>
+      <div class="input-field col s6">
+        <select [(ngModel)]="jogoEletronico.consolePlataforma.id" name="console_plataforma">
+          <option value="" disabled selected>
+            Escolha um console/plataforma
+          </option>
+          <option
+            *ngFor="let consolePlataforma of consolePlataformas"
+            [value]="consolePlataforma.id"
+          >
+            {{ consolePlataforma.nome }}
+          </option>
+        </select>
+        <label>Console/plataforma</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input
+          id="data_compra"
+          name="data_compra"
+          type="text"
+          class="validate"
+          [(ngModel)]="dataCompra"
+          mask="d0/M0/0000"
+        />
+        <label for="data_compra">Data da compra</label>
+      </div>
+    </div>
+  </form>
+</div>

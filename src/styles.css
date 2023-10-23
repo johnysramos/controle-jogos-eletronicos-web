@@ -12,10 +12,10 @@
 html, body, app-root {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* 100% da altura da janela */
+    height: 100vh;
 }
 
-router-outlet{
+main{
     flex-grow: 1;
     padding: 24px;
     background-color: var(--lightGray);;
