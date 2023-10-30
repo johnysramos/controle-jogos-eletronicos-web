@@ -1,6 +1,6 @@
 export class ConsolePlataforma {
   id: number | undefined;
-  nome: string;
+  nome: string | undefined;
 
   constructor(nome: string) {
     this.nome = nome;

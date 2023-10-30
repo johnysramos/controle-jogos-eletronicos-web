@@ -17,8 +17,7 @@ export class JogosEletronicosComponent implements OnInit {
   }
 
   onNovo() {
-    //this.ModoTela = ModoTela.FORMULARIO;
-    //this.Operacao = Operacao.CREATE;
+    this.router.navigate(['/jogos-eletronicos/detalhe', -1]);
   }
 
   onClickJogoEletronico(jogoEletronico: JogoEletronico) {

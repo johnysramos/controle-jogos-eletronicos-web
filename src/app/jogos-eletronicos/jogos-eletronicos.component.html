@@ -33,7 +33,7 @@
           <td>{{ jogoEletronico.id }}</td>
           <td>{{ jogoEletronico.titulo }}</td>
           <td>{{ jogoEletronico.dataCompra | date : "dd/MM/yyyy" }}</td>
-          <td>{{ jogoEletronico.consolePlataforma.nome }}</td>
+          <td>{{ jogoEletronico.consolePlataforma?.nome }}</td>
           <td>{{ jogoEletronico.estadoConservacao }}</td>
           <td>{{ jogoEletronico.midia }}</td>
         </tr>

@@ -2,11 +2,11 @@ import { ConsolePlataforma } from './console-plataforma';
 
 export class JogoEletronico {
   id: number | undefined;
-  titulo: string;
-  dataCompra: Date;
-  consolePlataforma: ConsolePlataforma;
-  estadoConservacao: EstadoConservacao;
-  midia: Midia;
+  titulo: string | undefined;
+  dataCompra: Date | undefined;
+  consolePlataforma: ConsolePlataforma | undefined;
+  estadoConservacao: EstadoConservacao | undefined;
+  midia: Midia | undefined;
 
   constructor(
     titulo: string,
