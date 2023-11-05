@@ -1,9 +1,11 @@
 import { EstadoConservacao, Midia } from './../model/jogo-eletronico';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { JogoEletronico } from '../model/jogo-eletronico';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConsolePlataforma } from '../model/console-plataforma';
 import { NgForm } from '@angular/forms';
+import { JogoEletronicoService } from '../services/jogoEletronico.service';
+import { ConsolePlataformaService } from '../services/consolePlataforma.service';
 
 @Component({
   selector: 'app-jogo-eletronico-detail',
@@ -11,8 +13,15 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./jogo-eletronico-detail.component.css'],
 })
 export class JogoEletronicoDetailComponent implements OnInit {
-  dataCompra?: string;
-  jogoEletronico!: JogoEletronico;
+  dataCompra: string | undefined = new Date().toLocaleDateString();
+  jogoEletronico: JogoEletronico = {
+    id: undefined,
+    titulo: undefined,
+    dataCompra: undefined,
+    consolePlataforma: undefined,
+    estadoConservacao: undefined,
+    midia: undefined,
+  };
 
   consolesPlataformas: ConsolePlataforma[] = [];
 
@@ -26,54 +35,48 @@ export class JogoEletronicoDetailComponent implements OnInit {
   @ViewChild('RadioMidiaFisica') RadioMidiaFisica!: ElementRef;
   @ViewChild('RadioMidiaDigital') RadioMidiaDigital!: ElementRef;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private jogoEletronicoService: JogoEletronicoService,
+    private consolePlataformaService: ConsolePlataformaService
+  ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     let idParam: number = +this.route.snapshot.paramMap.get('id')!;
 
+    console.log('idParam', idParam);
+
     if (idParam && idParam > 0) {
-      JogoEletronico.getJogosEletronicos().forEach((El) => {
+      /*JogoEletronico.getJogosEletronicos().forEach((El) => {
         if (idParam == El.id) {
           this.jogoEletronico = El;
         }
-      });
+      });*/
+
+      this.jogoEletronico = await this.jogoEletronicoService.getById(idParam);
+      console.log(this.jogoEletronico);
 
       this.dataCompra = this.jogoEletronico.dataCompra?.toLocaleDateString();
-    }
-    else {
-      this.jogoEletronico = {
-        id: undefined,
-        titulo: undefined,
-        dataCompra: undefined,
-        consolePlataforma: undefined,
-        estadoConservacao: undefined,
-        midia: undefined
-      };
-
-      this.dataCompra = new Date().toLocaleDateString();
     }
 
     this.listConsolesPlataformas();
     this.inicializaRadioButtonEstado();
     this.inicializaRadioButtonMidia();
-
   }
 
-  listConsolesPlataformas() {
-    this.consolesPlataformas = ConsolePlataforma.getConsolePlataformas();
+  async listConsolesPlataformas() {
+    this.consolesPlataformas = await this.consolePlataformaService.findAll();
     setTimeout(() => {
       M.FormSelect.init(this.ConsolePlataformaSelect.nativeElement);
     }, 100);
   }
 
   compareConsolePlataforma(cp1: ConsolePlataforma, cp2: ConsolePlataforma) {
-      return cp1?.id == cp2?.id;
+    return cp1?.id == cp2?.id;
   }
 
-  onSave() {
-    console.log('this.jogoEletronico', this.jogoEletronico);
-    console.log('dataCompra', this.dataCompra);
-
+  async onSave() {
     // Convert data da compra
     this.jogoEletronico.dataCompra = new Date(
       this.dataCompra ? Number(this.dataCompra.split('/')[2]) : 0,
@@ -97,12 +100,36 @@ export class JogoEletronicoDetailComponent implements OnInit {
       this.jogoEletronico.midia = Midia.FISICA;
     }
 
-    localStorage.setItem('EntidadeJogoEletronico', JSON.stringify(this.jogoEletronico));
+    localStorage.setItem(
+      'EntidadeJogoEletronico',
+      JSON.stringify(this.jogoEletronico)
+    );
 
-    let _EntidadeJogoEletronico =  localStorage.getItem('EntidadeJogoEletronico');
+    let _EntidadeJogoEletronico = localStorage.getItem(
+      'EntidadeJogoEletronico'
+    );
 
     if (_EntidadeJogoEletronico) {
       console.log(JSON.parse(_EntidadeJogoEletronico));
+    }
+
+    let retorno = await this.jogoEletronicoService.save(this.jogoEletronico);
+
+    if (retorno) {
+      window.alert('Jogo salvo com sucesso');
+    }
+  }
+
+  async onDelete() {
+    if (window.confirm('Tem certeza que deseja remover esse jogo?')) {
+      let retorno = await this.jogoEletronicoService.delete(
+        this.jogoEletronico
+      );
+
+      if (retorno) {
+        this.router.navigate(['/jogos-eletronicos']);
+        window.alert('Jogo deletado com sucesso');
+      }
     }
   }
 

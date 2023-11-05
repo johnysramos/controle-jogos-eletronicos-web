@@ -12,6 +12,11 @@
           ><i style="cursor: pointer" class="material-icons">save</i></a
         >
       </li>
+      <li>
+        <a (click)="onDelete()" *ngIf="jogoEletronico.id"
+          ><i style="cursor: pointer" class="material-icons">delete</i></a
+        >
+      </li>
     </ul>
   </div>
 </nav>

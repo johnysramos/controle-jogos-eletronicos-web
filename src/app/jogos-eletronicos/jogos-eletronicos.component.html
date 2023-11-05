@@ -7,6 +7,14 @@
 
 <div style="min-height: 200px; background-color: white; margin-top: 20px">
   <div style="padding: 20px; text-align: right">
+    <a
+      style="margin-right: 20px"
+      class="waves-effect waves-light btn"
+      (click)="onRestaurar()"
+      *ngIf="ultimoJogoDeletado"
+      ><i class="material-icons left">settings_backup_restore</i>Restaurar
+      último</a
+    >
     <a class="waves-effect waves-light btn" (click)="onNovo()"
       ><i class="material-icons left">add</i>Novo</a
     >

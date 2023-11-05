@@ -1,0 +1,54 @@
+{
+  "consolesPlataformas": [
+    {
+      "id": 1,
+      "nome": "Playstation 1"
+    },
+    {
+      "id": 2,
+      "nome": "Xbox 360"
+    },
+    {
+      "id": 3,
+      "nome": "Computador"
+    },
+    {
+      "id": 4,
+      "nome": "Playstation 2"
+    }
+  ],
+  "jogosEletronicos": [
+    {
+      "titulo": "Resident Evil 2",
+      "dataCompra": "2005-6-6",
+      "consolesPlataformaId": 1,
+      "estadoConservacao": "Usado",
+      "midia": "Física",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "titulo": "Dota 2",
+      "dataCompra": "2023-05-21",
+      "consolesPlataformaId": 3,
+      "estadoConservacao": "Não se aplica",
+      "midia": "Digital"
+    },
+    {
+      "titulo": "Resident Evil 4",
+      "dataCompra": "1994-06-06",
+      "consolesPlataformaId": 4,
+      "estadoConservacao": "Usado",
+      "midia": "Física",
+      "id": 3
+    },
+    {
+      "titulo": "Killing floor 2",
+      "dataCompra": "2021-2-20",
+      "consolesPlataformaId": 3,
+      "estadoConservacao": "Não se aplica",
+      "midia": "Digital",
+      "id": 4
+    }
+  ]
+}

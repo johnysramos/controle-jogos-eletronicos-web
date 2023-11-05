@@ -22,7 +22,7 @@ export class JogoEletronico {
     this.midia = midia;
   }
 
-  static getJogosEletronicos() {
+  /*static getJogosEletronicos() {
     const JogosEletronicosTest: JogoEletronico[] = [
       {
         id: 1,
@@ -51,7 +51,7 @@ export class JogoEletronico {
     ];
 
     return JogosEletronicosTest;
-  }
+  }*/
 }
 
 export enum Midia {

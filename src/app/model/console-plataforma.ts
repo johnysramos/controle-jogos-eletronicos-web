@@ -6,7 +6,7 @@ export class ConsolePlataforma {
     this.nome = nome;
   }
 
-  static getConsolePlataformas() {
+  /*static getConsolePlataformas() {
     const ConsolePlataformaTest: ConsolePlataforma[] = [
       {
         id: 1,
@@ -23,5 +23,5 @@ export class ConsolePlataforma {
     ];
 
     return ConsolePlataformaTest;
-  }
+  }*/
 }
