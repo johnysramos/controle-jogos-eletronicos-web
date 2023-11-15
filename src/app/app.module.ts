@@ -10,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { JogoEletronicoDetailComponent } from './jogo-eletronico-detail/jogo-eletronico-detail.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { JogoEletronicoDetailComponent } from './jogo-eletronico-detail/jogo-ele
     BrowserModule,
     AppRoutingModule,
     NgxMaskDirective, NgxMaskPipe,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     provideNgxMask()

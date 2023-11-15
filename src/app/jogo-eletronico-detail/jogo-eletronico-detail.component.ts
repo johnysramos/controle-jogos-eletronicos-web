@@ -42,22 +42,19 @@ export class JogoEletronicoDetailComponent implements OnInit {
     private consolePlataformaService: ConsolePlataformaService
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     let idParam: number = +this.route.snapshot.paramMap.get('id')!;
 
-    console.log('idParam', idParam);
-
     if (idParam && idParam > 0) {
-      /*JogoEletronico.getJogosEletronicos().forEach((El) => {
-        if (idParam == El.id) {
-          this.jogoEletronico = El;
-        }
-      });*/
-
-      this.jogoEletronico = await this.jogoEletronicoService.getById(idParam);
-      console.log(this.jogoEletronico);
-
-      this.dataCompra = this.jogoEletronico.dataCompra?.toLocaleDateString();
+      this.jogoEletronicoService.getById(idParam).subscribe({
+        next: (data: JogoEletronico) => {
+          this.jogoEletronico = data;
+          this.dataCompra =
+            this.jogoEletronico.dataCompra?.toLocaleDateString();
+          console.log('OnInit', this.jogoEletronico);
+        },
+        error: (error) => alert(error.message),
+      });
     }
 
     this.listConsolesPlataformas();
@@ -110,26 +107,31 @@ export class JogoEletronicoDetailComponent implements OnInit {
     );
 
     if (_EntidadeJogoEletronico) {
-      console.log(JSON.parse(_EntidadeJogoEletronico));
+      console.log(
+        'JSON.parse(_EntidadeJogoEletronico)',
+        JSON.parse(_EntidadeJogoEletronico)
+      );
     }
 
-    let retorno = await this.jogoEletronicoService.save(this.jogoEletronico);
-
-    if (retorno) {
-      window.alert('Jogo salvo com sucesso');
-    }
+    this.jogoEletronicoService.save(this.jogoEletronico).subscribe({
+      next: async (data) => {
+        await this.router.navigate(['/jogos-eletronicos/detalhe', data.id]);
+        this.ngOnInit();
+        alert('Jogo salvo com sucesso');
+      },
+      error: (error) => alert(error.message),
+    });
   }
 
   async onDelete() {
     if (window.confirm('Tem certeza que deseja remover esse jogo?')) {
-      let retorno = await this.jogoEletronicoService.delete(
-        this.jogoEletronico
-      );
-
-      if (retorno) {
-        this.router.navigate(['/jogos-eletronicos']);
-        window.alert('Jogo deletado com sucesso');
-      }
+      this.jogoEletronicoService.delete(this.jogoEletronico).subscribe({
+        next: () => {
+          alert('Jogo deletado com sucesso');
+          this.router.navigate(['/jogos-eletronicos']);
+        },
+        error: (error) => alert(error.message),
+      });
     }
   }
 

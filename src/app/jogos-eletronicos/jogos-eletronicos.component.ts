@@ -18,7 +18,15 @@ export class JogosEletronicosComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.jogosEletronicos = await this.jogoEletronicoService.findAll();
+    //this.jogosEletronicos = await this.jogoEletronicoService.findAll();
+
+    this.jogoEletronicoService.findall().subscribe({
+      next: (value) => {
+        this.jogosEletronicos = value;
+      },
+      error: (error) => alert(error.message),
+    });
+
     this.ultimoJogoDeletado = this.jogoEletronicoService.ultimoJogoDeletado;
   }
 
@@ -34,12 +42,19 @@ export class JogosEletronicosComponent implements OnInit {
     console.log('ultimoJogoDeletado', this.ultimoJogoDeletado);
 
     if (this.ultimoJogoDeletado) {
-      let retorno = await this.jogoEletronicoService.save(this.ultimoJogoDeletado, true);
-
-      if (retorno) {
-        this.jogosEletronicos = await this.jogoEletronicoService.findAll();
-        this.ultimoJogoDeletado = this.jogoEletronicoService.ultimoJogoDeletado;
-      }
+      this.jogoEletronicoService.save(this.ultimoJogoDeletado, true).subscribe({
+        next: () => {
+          this.jogoEletronicoService.findall().subscribe({
+            next: (value) => {
+              this.jogosEletronicos = value;
+            },
+            error: (error) => alert(error.message),
+          });
+          this.ultimoJogoDeletado =
+            this.jogoEletronicoService.ultimoJogoDeletado;
+        },
+        error: (error) => alert(error.message),
+      });
     }
   }
 }

@@ -1,6 +1,9 @@
 import { ConsolePlataformaService } from './consolePlataforma.service';
 import { Injectable } from '@angular/core';
 import { JogoEletronico } from '../model/jogo-eletronico';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, map, mergeMap, of } from 'rxjs';
+import { ErrorUtil } from '../utils/error-util';
 
 @Injectable({
   providedIn: 'root',
@@ -10,50 +13,69 @@ export class JogoEletronicoService {
 
   ultimoJogoDeletado?: JogoEletronico;
 
-  constructor(private consolePlataformaService: ConsolePlataformaService) {}
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
-  async getById(id: number): Promise<JogoEletronico> {
-    let response = await fetch(`${this.URL}/${id}`);
-    let data = await response.json();
+  constructor(
+    private consolePlataformaService: ConsolePlataformaService,
+    private httpClient: HttpClient
+  ) {}
 
-    data.consolePlataforma = await this.consolePlataformaService.getById(
-      data.consolesPlataformaId
+  getById(id: number): Observable<JogoEletronico> {
+    return this.httpClient.get<JogoEletronico>(`${this.URL}/${id}`).pipe(
+      map((data) => {
+        if (data && data.dataCompra) {
+          data.dataCompra = new Date(
+            Number(data.dataCompra.toString().split('-')[0]),
+            Number(data.dataCompra.toString().split('-')[1]) - 1,
+            Number(data.dataCompra.toString().split('-')[2])
+          );
+        }
+
+        this.consolePlataformaService
+          .getById((data as any).consolesPlataformaId)
+          .subscribe({
+            next: (value) => (data.consolePlataforma = value),
+          });
+
+        return data;
+      }),
+      catchError(ErrorUtil.handleError)
     );
-
-    data.dataCompra = new Date(
-      data.dataCompra.split('-')[0],
-      data.dataCompra.split('-')[1] - 1,
-      data.dataCompra.split('-')[2]
-    );
-
-    return data;
   }
 
-  async findAll(): Promise<JogoEletronico[]> {
-    let response = await fetch(`${this.URL}`);
+  findall(): Observable<JogoEletronico[]> {
+    return this.httpClient.get<JogoEletronico[]>(`${this.URL}`).pipe(
+      map((data) => {
+        if (data && data.length > 0) {
+          for (let i = 0; i < data.length; i++) {
+            this.consolePlataformaService
+              .getById((data[i] as any).consolesPlataformaId)
+              .subscribe({
+                next: (value) => (data[i].consolePlataforma = value),
+              });
 
-    let data = await response.json();
+            if (data[i] && data[i].dataCompra) {
+              data[i].dataCompra = new Date(
+                Number(data[i].dataCompra?.toString().split('-')[0]),
+                Number(data[i].dataCompra?.toString().split('-')[1]) - 1,
+                Number(data[i].dataCompra?.toString().split('-')[2])
+              );
+            }
+          }
+        }
 
-    if (data && data.length > 0) {
-      for (let i = 0; i < data.length; i++) {
-        data[i].consolePlataforma = await this.consolePlataformaService.getById(
-          data[i].consolesPlataformaId
-        );
-        data[i].dataCompra = new Date(
-          data[i].dataCompra.split('-')[0],
-          data[i].dataCompra.split('-')[1] - 1,
-          data[i].dataCompra.split('-')[2]
-        );
-      }
-    }
-
-    return data;
+        return data;
+      }),
+      catchError(ErrorUtil.handleError)
+    );
   }
 
-  async save(jogoEletronico: JogoEletronico, ultimoDeletado?: boolean): Promise<JogoEletronico> {
-    let header = new Headers();
-    header.append('Content-Type', 'application/json');
-
+  save(
+    jogoEletronico: JogoEletronico,
+    ultimoDeletado?: boolean
+  ): Observable<JogoEletronico> {
     if (ultimoDeletado) {
       this.ultimoJogoDeletado = undefined;
       jogoEletronico.id = undefined;
@@ -74,46 +96,43 @@ export class JogoEletronicoService {
       midia: jogoEletronico.midia?.toString(),
     };
 
-    let raw = JSON.stringify(_data);
-
-    let requestOptions = {
-      method: jogoEletronico.id ? 'PUT' : 'POST',
-      headers: header,
-      body: raw,
-    };
-
-    let response = await fetch(
-      jogoEletronico.id ? `${this.URL}/${jogoEletronico.id}` : this.URL,
-      requestOptions
-    );
-
-    let _retorno = await response.json();
-
-    _retorno.consolePlataforma = await this.consolePlataformaService.getById(
-      _retorno.consolesPlataformaId
-    );
-
-    _retorno.dataCompra = new Date(
-      _retorno.dataCompra.split('-')[0],
-      _retorno.dataCompra.split('-')[1] - 1,
-      _retorno.dataCompra.split('-')[2]
-    );
-
-    return _retorno;
+    if (jogoEletronico.id) {
+      return this.httpClient
+        .put<JogoEletronico>(
+          `${this.URL}/${jogoEletronico.id}`,
+          _data,
+          this.httpOptions
+        )
+        .pipe(
+          mergeMap((data) => {
+            if (data.id) {
+              return this.getById(data.id);
+            }
+            return of(data);
+          }),
+          catchError(ErrorUtil.handleError)
+        );
+    } else {
+      return this.httpClient
+        .post<JogoEletronico>(`${this.URL}`, _data, this.httpOptions)
+        .pipe(
+          mergeMap((data) => {
+            if (data.id) {
+              return this.getById(data.id);
+            }
+            return of(data);
+          }),
+          catchError(ErrorUtil.handleError)
+        );
+    }
   }
 
-  async delete(jogoEletronico: JogoEletronico) {
+  delete(jogoEletronico: JogoEletronico): Observable<any> {
     // Gravamos o ultimo jogo deletado
     this.ultimoJogoDeletado = jogoEletronico;
 
-    let requestOptions = {
-      method: 'DELETE',
-    };
-
-    let response = await fetch(`${this.URL}/${jogoEletronico.id}`, requestOptions);
-
-    let retorno = await response.json();
-
-    return retorno;
+    return this.httpClient
+      .delete(`${this.URL}/${jogoEletronico.id}`)
+      .pipe(catchError(ErrorUtil.handleError));
   }
 }

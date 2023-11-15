@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ConsolePlataforma } from '../model/console-plataforma';
+import { Observable, catchError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { ErrorUtil } from '../utils/error-util';
 
 @Injectable({
   providedIn: 'root',
@@ -7,15 +10,15 @@ import { ConsolePlataforma } from '../model/console-plataforma';
 export class ConsolePlataformaService {
   URL = 'http://localhost:3000/consolesPlataformas';
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
-  async getById(id: number): Promise<ConsolePlataforma> {
-    let response = await fetch(`${this.URL}/${id}`);
-
-    return await response.json();
+  getById(id: number): Observable<ConsolePlataforma> {
+    return this.httpClient
+      .get<ConsolePlataforma>(`${this.URL}/${id}`)
+      .pipe(catchError(ErrorUtil.handleError));
   }
 
-  async findAll() : Promise<ConsolePlataforma[]> {
+  async findAll(): Promise<ConsolePlataforma[]> {
     let response = await fetch(`${this.URL}`);
 
     return await response.json();
