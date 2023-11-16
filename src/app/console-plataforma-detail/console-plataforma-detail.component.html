@@ -1,0 +1,45 @@
+<!-- Toolbar grid -->
+<nav class="primary-color">
+  <div class="nav-wrapper">
+    <ul class="right">
+      <li>
+        <a routerLink="/consoles-plataformas"
+          ><i style="cursor: pointer" class="material-icons">chevron_left</i></a
+        >
+      </li>
+      <li>
+        <a (click)="onSave()" *ngIf="form.valid"
+          ><i style="cursor: pointer" class="material-icons">save</i></a
+        >
+      </li>
+      <li>
+        <a (click)="onDelete()" *ngIf="consolePlataforma.id"
+          ><i style="cursor: pointer" class="material-icons">delete</i></a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- Formulário -->
+<div class="row card-panel white">
+  <form class="col s12" #form="ngForm">
+    <div class="row">
+      <!-- Nome -->
+      <div class="input-field col s12">
+        <label for="nome" class="active">Nome</label>
+        <input
+          id="nome"
+          name="nome"
+          type="text"
+          class="validate"
+          [(ngModel)]="consolePlataforma.nome"
+          #nome="ngModel"
+          required
+        />
+        <div class="red-text" [hidden]="nome.valid || nome.untouched">
+          Por favor, informe o nome.
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

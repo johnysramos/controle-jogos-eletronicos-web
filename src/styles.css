@@ -3,36 +3,47 @@
 @import "~material-icons/iconfont/material-icons.css";
 
 :root {
-    --dark: rgb(52, 58, 64);
-    --primaryColor: rgb(119, 73, 248);
-    --primaryColorDark: rgb(82, 39, 204);
-    --lightGray: rgb(198, 203, 209);
+  --dark: rgb(52, 58, 64);
+  --primaryColor: rgb(119, 73, 248);
+  --primaryColorDark: rgb(82, 39, 204);
+  --lightGray: rgb(198, 203, 209);
 }
 
-html, body, app-root {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+html,
+body,
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-main{
-    flex-grow: 1;
-    padding: 24px;
-    background-color: var(--lightGray);;
+main {
+  flex-grow: 1;
+  padding: 24px;
+  background-color: var(--lightGray);
 }
 
 .dark-color {
-    background-color: var(--dark);
+  background-color: var(--dark);
 }
 
 .primary-color {
-    background-color: var(--primaryColor);
+  background-color: var(--primaryColor);
 }
 
 .primary-color-dark {
-    background-color: var(--primaryColorDark);
+  background-color: var(--primaryColorDark);
 }
 
 .light-gray {
-    background-color: var(--lightGray);
+  background-color: var(--lightGray);
+}
+
+table.crud-table > tbody > tr {
+  cursor: pointer;
+}
+
+table.crud-table > tbody > tr > td,
+table.crud-table > thead > tr > th {
+  padding: 15px;
 }

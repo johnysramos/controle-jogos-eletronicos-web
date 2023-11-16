@@ -1,11 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { AppError } from './app-error';
 
 export class ErrorUtil {
   public static handleError(error: any) {
     let errorMessage = '';
     if (error.status === 0) {
-      errorMessage = 'Opsss! Um problema inesperado aconteceu';
+      errorMessage = error instanceof AppError ? error.message : 'Opsss! Um problema inesperado aconteceu';
     } else {
       errorMessage = ErrorUtil.getServerErrorMessage(error);
     }

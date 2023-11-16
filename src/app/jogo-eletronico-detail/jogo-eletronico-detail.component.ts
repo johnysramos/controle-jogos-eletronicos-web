@@ -63,10 +63,16 @@ export class JogoEletronicoDetailComponent implements OnInit {
   }
 
   async listConsolesPlataformas() {
-    this.consolesPlataformas = await this.consolePlataformaService.findAll();
-    setTimeout(() => {
-      M.FormSelect.init(this.ConsolePlataformaSelect.nativeElement);
-    }, 100);
+    //this.consolesPlataformas = await this.consolePlataformaService.findAll();
+    this.consolePlataformaService.findAll().subscribe({
+      next: (data) => {
+        this.consolesPlataformas = data;
+        setTimeout(() => {
+          M.FormSelect.init(this.ConsolePlataformaSelect.nativeElement);
+        }, 100);
+      },
+      error: (error) => alert(error.message),
+    });
   }
 
   compareConsolePlataforma(cp1: ConsolePlataforma, cp2: ConsolePlataforma) {

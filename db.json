@@ -15,6 +15,10 @@
     {
       "id": 4,
       "nome": "Playstation 2"
+    },
+    {
+      "nome": "Playstation 3",
+      "id": 5
     }
   ],
   "jogosEletronicos": [
@@ -27,20 +31,12 @@
       "id": 1
     },
     {
-      "id": 2,
       "titulo": "Dota 2",
-      "dataCompra": "2023-05-21",
+      "dataCompra": "2023-5-21",
       "consolesPlataformaId": 3,
       "estadoConservacao": "Não se aplica",
-      "midia": "Digital"
-    },
-    {
-      "titulo": "Resident Evil 4",
-      "dataCompra": "1994-06-06",
-      "consolesPlataformaId": 4,
-      "estadoConservacao": "Usado",
-      "midia": "Física",
-      "id": 3
+      "midia": "Digital",
+      "id": 2
     },
     {
       "titulo": "Killing floor 2",
@@ -49,6 +45,14 @@
       "estadoConservacao": "Não se aplica",
       "midia": "Digital",
       "id": 4
+    },
+    {
+      "titulo": "ResidentEvil 4",
+      "dataCompra": "2023-11-15",
+      "consolesPlataformaId": 4,
+      "estadoConservacao": "Usado",
+      "midia": "Física",
+      "id": 5
     }
   ]
 }

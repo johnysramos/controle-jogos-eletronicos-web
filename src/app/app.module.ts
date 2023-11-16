@@ -11,6 +11,8 @@ import { HomeComponent } from './home/home.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { JogoEletronicoDetailComponent } from './jogo-eletronico-detail/jogo-eletronico-detail.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ConsolesPlataformasComponent } from './consoles-plataformas/consoles-plataformas.component';
+import { ConsolePlataformaDetailComponent } from './console-plataforma-detail/console-plataforma-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
     JogosEletronicosComponent,
     FooterComponent,
     HomeComponent,
-    JogoEletronicoDetailComponent
+    JogoEletronicoDetailComponent,
+    ConsolesPlataformasComponent,
+    ConsolePlataformaDetailComponent
   ],
   imports: [
     BrowserModule,
