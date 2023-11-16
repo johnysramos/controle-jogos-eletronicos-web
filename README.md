@@ -5,7 +5,7 @@ O frontend da aplicação foi desenvolvido com Angular e o backend foi simulado 
 
 ## Endereço de Deploy - GitHub Pages
 
-<!-- Link -->
+https://johnysramos.github.io/controle-jogos-eletronicos-web/home
 
 ## Protótipo
 
@@ -30,7 +30,7 @@ https://www.figma.com/file/3Xutb1MP6zT3unpwjbhvPY/Controle-jogos-eletr%C3%B4nico
 - [x] Apresentar uma lista de dados com a diretiva estrutural ngFor.
 - [x] Usar a diretiva ngIf
 - [x] Formatar a apresentação de dados com Pipes.
-- [ ] Build e deploy da aplicação.
+- [x] Build e deploy da aplicação.
 
 ## Manual de execução
 - Clonar o repositório com `git clone`
