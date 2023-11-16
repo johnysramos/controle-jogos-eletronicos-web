@@ -1,0 +1,51 @@
+<!-- Toolbar grid -->
+<nav style="margin-top: 20px" class="primary-color">
+  <div class="nav-wrapper" style="padding-left: 10px">
+    <p>Jogos eletronicos</p>
+  </div>
+</nav>
+
+<div style="min-height: 200px; background-color: white; margin-top: 20px">
+  <div style="padding: 20px; text-align: right">
+    <a
+      style="margin-right: 20px"
+      class="waves-effect waves-light btn"
+      (click)="onRestaurar()"
+      *ngIf="ultimoJogoDeletado"
+      ><i class="material-icons left">settings_backup_restore</i>Restaurar
+      último</a
+    >
+    <a class="waves-effect waves-light btn" (click)="onNovo()"
+      ><i class="material-icons left">add</i>Novo</a
+    >
+  </div>
+
+  <div>
+    <table class="responsive-table highlight crud-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Título</th>
+          <th>Data da compra</th>
+          <th>Console/plataforma</th>
+          <th>Estado de conservação</th>
+          <th>Mídia</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="let jogoEletronico of jogosEletronicos"
+          (click)="onClickJogoEletronico(jogoEletronico)"
+        >
+          <td>{{ jogoEletronico.id }}</td>
+          <td>{{ jogoEletronico.titulo }}</td>
+          <td>{{ jogoEletronico.dataCompra | date : "dd/MM/yyyy" }}</td>
+          <td>{{ jogoEletronico.consolePlataforma?.nome }}</td>
+          <td>{{ jogoEletronico.estadoConservacao }}</td>
+          <td>{{ jogoEletronico.midia }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+<!-- Toolbar grid -->
+<nav class="primary-color">
+  <div class="nav-wrapper">
+    <ul class="right">
+      <li>
+        <a routerLink="/jogos-eletronicos"
+          ><i style="cursor: pointer" class="material-icons">chevron_left</i></a
+        >
+      </li>
+      <li>
+        <a (click)="onSave()" *ngIf="form.valid"
+          ><i style="cursor: pointer" class="material-icons">save</i></a
+        >
+      </li>
+      <li>
+        <a (click)="onDelete()" *ngIf="jogoEletronico.id"
+          ><i style="cursor: pointer" class="material-icons">delete</i></a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- Formulário -->
+<div class="row card-panel white">
+  <form class="col s12" #form="ngForm">
+    <div class="row">
+      <!-- Título -->
+      <div class="input-field col s6">
+        <label for="titulo" class="active">Título</label>
+        <input
+          id="titulo"
+          name="titulo"
+          type="text"
+          class="validate"
+          [(ngModel)]="jogoEletronico.titulo"
+          #titulo="ngModel"
+          required
+        />
+        <div class="red-text" [hidden]="titulo.valid || titulo.untouched">
+          Por favor, informe o título.
+        </div>
+      </div>
+      <!-- Console/plataforma -->
+      <div class="input-field col s6">
+        <label for="console_plataforma" class="active"
+          >Console/plataforma</label
+        >
+        <select
+          id="console_plataforma"
+          name="console_plataforma"
+          [compareWith]="compareConsolePlataforma"
+          [(ngModel)]="jogoEletronico.consolePlataforma"
+          #ConsolePlataforma="ngModel"
+          #ConsolePlataformaSelect
+          required
+        >
+          <option [ngValue]="undefined" disabled>
+            Selecione um console/plataforma
+          </option>
+          <option *ngFor="let cp of consolesPlataformas" [ngValue]="cp">
+            {{ cp.nome }}
+          </option>
+        </select>
+        <div
+          class="red-text"
+          [hidden]="ConsolePlataforma.valid || ConsolePlataforma.untouched"
+        >
+          Por favor, informe um console/plataforma.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Data da compra -->
+      <div class="input-field col s6">
+        <label for="data_compra" class="active">Data da compra</label>
+        <input
+          id="data_compra"
+          name="data_compra"
+          type="text"
+          class="validate"
+          [(ngModel)]="dataCompra"
+          mask="d0/M0/0000"
+          required
+          #DataCompra="ngModel"
+          pattern="^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$"
+          [dropSpecialCharacters]="false"
+        />
+        <div
+          class="red-text"
+          [hidden]="DataCompra.valid || DataCompra.untouched"
+        >
+          Por favor, informe uma data válida.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Estado de conservação -->
+      <div class="input-field col s6" name="estado">
+        <label for="estado" class="active">Estado</label>
+        <p>
+          <label>
+            <input class="with-gap" name="estado" type="radio" #RadioEstadoNovo />
+            <span>Novo</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input class="with-gap" name="estado" type="radio" #RadioEstadoUsado />
+            <span>Usado</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input class="with-gap" name="estado" type="radio" #RadioEstadoNaoSeAplica/>
+            <span>Não se aplica</span>
+          </label>
+        </p>
+      </div>
+      <!-- Mídia -->
+      <div class="input-field col s6" name="midia">
+        <label for="midia" class="active">Midia</label>
+        <p>
+          <label>
+            <input class="with-gap" name="midia" type="radio" #RadioMidiaFisica />
+            <span>Física</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input class="with-gap" name="midia" type="radio" #RadioMidiaDigital />
+            <span>Digital</span>
+          </label>
+        </p>
+      </div>
+    </div>
+  </form>
+</div>
