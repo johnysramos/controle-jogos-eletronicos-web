@@ -19,6 +19,10 @@
     {
       "nome": "Playstation 3",
       "id": 5
+    },
+    {
+      "nome": "Playstation 4",
+      "id": 6
     }
   ],
   "jogosEletronicos": [
