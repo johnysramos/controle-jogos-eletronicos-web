@@ -11,6 +11,10 @@ https://johnysramos.github.io/controle-jogos-eletronicos-web/home
 
 https://www.figma.com/file/3Xutb1MP6zT3unpwjbhvPY/Controle-jogos-eletr%C3%B4nicos?type=design&node-id=4688-2&mode=design
 
+## Vídeo de apresentação do projeto para disciplina
+
+https://youtu.be/8caKW7YaqAw
+
 ## Checklist
 
 - [x] Criar o repositório no GitHub com a estrutura do Gitflow, ou seja, branches main e develop.
